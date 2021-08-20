@@ -4,6 +4,16 @@
     "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe_Console\\KomodoCafe_Console.csproj": {}
   },
   "projects": {
+    "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe\\KomodoCafe.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe\\KomodoCafe.csproj",
+        "projectName": "KomodoCafe",
+        "projectPath": "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe\\KomodoCafe.csproj"
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    },
     "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe_Console\\KomodoCafe_Console.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -31,7 +41,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe\\KomodoCafe.csproj": {
+                "projectPath": "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe\\KomodoCafe.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

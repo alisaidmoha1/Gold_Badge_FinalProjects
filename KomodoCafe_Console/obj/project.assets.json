@@ -1,11 +1,29 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "KomodoCafe/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/KomodoCafe.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/KomodoCafe.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "KomodoCafe/1.0.0": {
+      "type": "project",
+      "path": "../KomodoCafe/KomodoCafe.csproj",
+      "msbuildProject": "../KomodoCafe/KomodoCafe.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "KomodoCafe >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Saed\\.nuget\\packages\\": {},
@@ -38,7 +56,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe\\KomodoCafe.csproj": {
+              "projectPath": "C:\\Users\\Saed\\source\\repos\\GoldBadge_Challenges\\KomodoCafe\\KomodoCafe.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -7,7 +7,16 @@ namespace KomodoCafe_Tests
     [TestClass]
     public class CafeMenu_Repository_Tests
     {
-      
+        private CafeMenu_Repository _repo;
+        private CafeMenu _menu;
+        [TestInitialize]
+        public void Arrange()
+        {
+            _repo = new CafeMenu_Repository();
+
+            _menu = new CafeMenu(1, "The Loaf", "The Best Sandwitch", 5.5m, "Bread, Tomato, Cumcumber");
+            _repo.AddMenuToTheList(_menu);
+        }
 
 
         [TestMethod]
@@ -24,21 +33,10 @@ namespace KomodoCafe_Tests
            
         }
 
-        private CafeMenu_Repository _repo;
-        private CafeMenu _menu;
-        [TestInitialize]
-        public void Arrange()
-        {
-            _repo = new CafeMenu_Repository();
-
-            _menu = new CafeMenu(1, "The Loaf", "The Best Sandwitch", 5.5m, "Bread, Tomato, Cumcumber");
-            _repo.AddMenuToTheList(_menu);
-        }
-
         [TestMethod]
         public void TestingDeleteMethod()
         {
-            bool deleteResult = _repo.DeleteMenuFromTheList(_menu);
+            bool deleteResult = _repo.DeleteMenuFromTheList(_menu.MealNumber);
             Assert.IsTrue(deleteResult);
 
         }
