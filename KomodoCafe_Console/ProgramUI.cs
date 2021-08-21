@@ -41,10 +41,10 @@ namespace KomodoCafe_Console
                         DisplayAllMenuItems();
                         break;
                     case "3":
-                        //Search item by Meal number
+                        SearchMenuItemByMealNumber();
                         break;
                     case "4":
-                        //Delete menu item
+                        DeleteMenuItem();
                         break;
                     case "5":
                     case "EXIT":
@@ -85,7 +85,16 @@ namespace KomodoCafe_Console
             WriteLine("Enter the price");
             newMenuItem.Price = Decimal.Parse(ReadLine());
 
+            List<CafeMenu> menuItems = _repo.GetMenuList();
+
+            if (!_repo.GetMenuList().Contains(newMenuItem))
+            {
             _repo.AddMenuToTheList(newMenuItem);
+            } else
+            {
+                WriteLine("You already have this menu item");
+            }
+
         }
 
         private void DisplayAllMenuItems()
@@ -105,15 +114,65 @@ namespace KomodoCafe_Console
             }
         }
 
+        private void SearchMenuItemByMealNumber()
+        {
+            WriteLine("Enter meal number: ");
+            string userInput = ReadLine().ToString();
+            int userInputInt = int.Parse(userInput);
+
+            CafeMenu mealNumber = _repo.GetMenuByMealNumber(userInputInt);
+            if (userInput == null) {
+                WriteLine("The Meal Number you entered has not been found");
+            } else
+            {
+                WriteLine($"\nNo.{mealNumber.MealNumber}\n" +
+                    $"Name: {mealNumber.MealName}\n" +
+                    $"Description: {mealNumber.Description}\n" +
+                    $"The ingredients: {mealNumber.ListOfIngredients}\n" +
+                    $"The Price: ${mealNumber.Price}");
+                WriteLine("\n====================\n");
+            }
+        }
+
+        private void DeleteMenuItem()
+        {
+            WriteLine("Enter the menu meal number you want to delete: ");
+            string userInput = ReadLine().ToString();
+            int userInputInt = int.Parse(userInput);
+
+            CafeMenu mealNumber = _repo.GetMenuByMealNumber(userInputInt);
+
+            if(userInput == null)
+            {
+                WriteLine("The meal number you entered is not valid");
+            } else
+            {
+                WriteLine($"Are you sure you want to delete No.{mealNumber.MealNumber}, (yes or no)");
+                string answer = ReadLine().ToLower();
+                if (answer == "yes" || answer == "y")
+                {
+                    _repo.DeleteMenuFromTheList(userInputInt);
+                    WriteLine($"Menu item No.{mealNumber.MealNumber} is successfully deleted");
+                } else
+                {
+                    WriteLine("Phew! the menu item is safe for now");
+                }
+            }
+
+
+        }
+
         public void SeedContentMenu()
         {
-            CafeMenu menuItem1 = new CafeMenu(1, "Morning Brew", "Breakfast cereal", 7.00m, "Steel cut oats, quinao and blueberries topped with fresh apple");
-            CafeMenu menuItem2 = new CafeMenu(5, "The Sandwitch", "Breakfast sandwitch", 8.95m, "Eggs and Cheddar on toasted croissant with green salad");
-            CafeMenu menuItem3 = new CafeMenu(1, "House Granola", "Breakfast granola", 6.50m, "granola with greek yogurt and fresh fruit");
+            CafeMenu menuItem1 = new CafeMenu(001, "Morning Brew", "Breakfast cereal", 7.00m, "Steel cut oats, quinao and blueberries topped with fresh apple");
+            CafeMenu menuItem2 = new CafeMenu(005, "The Sandwitch", "Breakfast sandwitch", 8.95m, "Eggs and Cheddar on toasted croissant with green salad");
+            CafeMenu menuItem3 = new CafeMenu(004, "House Granola", "Breakfast granola", 6.50m, "granola with greek yogurt and fresh fruit");
+            CafeMenu menuItem4 = new CafeMenu(255, "Hi", "Hi", 5.5m, "hi");
 
             _repo.AddMenuToTheList(menuItem1);
             _repo.AddMenuToTheList(menuItem2);
             _repo.AddMenuToTheList(menuItem3);
+            _repo.AddMenuToTheList(menuItem4);
         }
 
         private void ConsoleInfo()

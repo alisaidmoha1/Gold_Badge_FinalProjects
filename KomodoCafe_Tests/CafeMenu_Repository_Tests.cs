@@ -1,6 +1,7 @@
 ﻿using KomodoCafe;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace KomodoCafe_Tests
 {
@@ -20,7 +21,7 @@ namespace KomodoCafe_Tests
 
 
         [TestMethod]
-        public void TestingAddMethod()
+        public void AddToMenuList_ShoudGetNotNull()
         {
            CafeMenu menu = new CafeMenu();
             menu.MealName = "The Sub";
@@ -32,13 +33,33 @@ namespace KomodoCafe_Tests
             Assert.IsNotNull(repo);
            
         }
+        [TestMethod]
+        public void GetMenuListItems_ShoudReturnListItems()
+        {
+            CafeMenu_Repository repo = new CafeMenu_Repository();
+            CafeMenu menuItems = new CafeMenu();
+            menuItems.MealName = "The Club Sandwich";
+
+            repo.AddMenuToTheList(menuItems);
+            List<CafeMenu> menu = repo.GetMenuList();
+            bool listHasMenu = menu.Contains(menuItems);
+            Assert.IsTrue(listHasMenu);
+        }
 
         [TestMethod]
-        public void TestingDeleteMethod()
+        public void DeleteMealNumber_ShouldReturnTrue()
         {
             bool deleteResult = _repo.DeleteMenuFromTheList(_menu.MealNumber);
             Assert.IsTrue(deleteResult);
 
+        }
+
+        [TestMethod]
+        public void GetByMealNumber_ShouldReturnTrue()
+        {
+            CafeMenu menu = _repo.GetMenuByMealNumber(1);
+            Assert.AreEqual(_menu, menu);
+            
         }
     }
 }

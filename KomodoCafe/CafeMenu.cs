@@ -8,11 +8,11 @@ namespace KomodoCafe
 {
     public class CafeMenu
     {
-        private int _MealNumber;
-        private string _MealName;
-        private string _Description;
-        private decimal _Price;
-        private string _ListOfIngredients;
+        //private int _MealNumber;
+        //private string _MealName;
+        //private string _Description;
+        //private decimal _Price;
+        //private string _ListOfIngredients;
 
         public int  MealNumber { get; set; }
         public string MealName { get; set; }
@@ -24,11 +24,11 @@ namespace KomodoCafe
 
         public CafeMenu(int mealNumber, string mealName, string description, decimal price, string listOfIngredients)
         {
-            _MealNumber = mealNumber;
-            _MealName = mealName;
-            _Description = description;
-            _Price = price;
-            _ListOfIngredients = listOfIngredients;
+            MealNumber = mealNumber;
+            MealName = mealName;
+            Description = description;
+            Price = price;
+            ListOfIngredients = listOfIngredients;
         }
 
     }

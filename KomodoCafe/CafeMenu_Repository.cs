@@ -12,7 +12,16 @@ namespace KomodoCafe
         //Create 
         public void AddMenuToTheList(CafeMenu menu)
         {
-            _menuList.Add(menu);
+
+
+            if (_menuList.Any(m => m.MealNumber == menu.MealNumber)) {
+                Console.Clear();
+                Console.WriteLine("\nERROR! You already have a menu item with the same meal number, please change it");
+
+            } else
+            {
+                _menuList.Add(menu);
+            }
         }
         //Read
         public List<CafeMenu> GetMenuList()
