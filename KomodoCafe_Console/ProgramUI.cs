@@ -51,6 +51,8 @@ namespace KomodoCafe_Console
                     case "exit":
                     case "Exit":
                         WriteLine("Goodbye!");
+                        WriteLine("Press any key to exit");
+                        ReadKey();
                         isRunning = false;
                         break;
                     default:
