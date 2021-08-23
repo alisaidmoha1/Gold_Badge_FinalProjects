@@ -28,12 +28,13 @@ namespace KomodoClaims
             if (claim == null)
             {
                 Console.WriteLine("The ID you entered is not in the record!");
-            } else
+            }
+            else
             {
                 _listOfClaims.Remove(claim);
             }
 
-            
+
         }
 
         //Helper Method

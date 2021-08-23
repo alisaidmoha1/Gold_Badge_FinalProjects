@@ -39,10 +39,10 @@ namespace KomodoClaims_Console
                         DisplayAllClaims();
                         break;
                     case "2":
-                        //Take care of next claim
+                        QueueClaims();
                         break;
                     case "3":
-                        //search claim by id
+                        SearchClaimByID();
                         break;
                     case "4":
                         CreateNewClaim();
@@ -82,12 +82,12 @@ namespace KomodoClaims_Console
                         $"Type: {claim.TypeOfClaim}, \n" +
                         $"Description: {claim.Description},\n" +
                         $"Amount: {claim.ClaimAmount},\n" +
-                        $"Date of accident: {claim.DateOfAccident},\n" +
-                        $"Date of claim: {claim.DateOfClaim},\n" +
+                        $"Date of accident: {claim.DateOfAccident.ToShortDateString()},\n" +
+                        $"Date of claim: {claim.DateOfClaim.ToShortDateString()},\n" +
                         $"IsValid: {claim.IsValid}");
                 WriteLine("=====================\n\n");
 
-                
+
             }
 
         }
@@ -122,6 +122,80 @@ namespace KomodoClaims_Console
 
             _repo.CreatNewClaim(newClaim);
         }
+
+        private void QueueClaims()
+        {
+                List<ClaimsDepartment> claims = _repo.GetAllClaims();
+                Queue<ClaimsDepartment> c = new Queue<ClaimsDepartment>(claims);
+                c.Dequeue();
+                
+                bool isKeeping = true;
+
+
+            while (isKeeping)
+            {
+                ClaimsDepartment claim = c.Dequeue();
+                Clear();
+                WriteLine("Here are the details for the next claim to be handled: \n");
+                WriteLine($"Claim ID: {claim.ClaimID},\n"   +
+                                $"Type: {claim.TypeOfClaim}, \n" +
+                                $"Description: {claim.Description},\n" +
+                                $"Amount: {claim.ClaimAmount},\n" +
+                                $"Date of accident: {claim.DateOfAccident.ToShortDateString()},\n" +
+                                $"Date of claim: {claim.DateOfClaim.ToShortDateString()},\n" +
+                                $"IsValid: {claim.IsValid}\n\n");
+                
+
+                if (c.Count <= 0)
+                {
+                    Clear();
+                    WriteLine("\nThe queue is empty, you don't have claims to solve. Good Job!!!");
+                    break;
+                }
+
+                WriteLine("Do you want to deal with this claim now(y/n)?\n");
+                string userInput = ReadLine().ToLower();
+
+                if (userInput == "yes" || userInput == "y")
+                {
+                   
+                    isKeeping = true;
+                }
+                else
+                {
+                    isKeeping = false;
+                    break;
+                }
+
+            }
+
+
+        }
+
+
+        private void SearchClaimByID()
+        {
+            Clear();
+            WriteLine("Enter the claim ID: ");
+            int userInput = int.Parse(ReadLine());
+
+            ClaimsDepartment claim = _repo.GetClaimsByID(userInput);
+
+            if (userInput == claim.ClaimID)
+            {
+                WriteLine($"Claim ID: {claim.ClaimID},\n" +
+                                $"Type: {claim.TypeOfClaim}, \n" +
+                                $"Description: {claim.Description},\n" +
+                                $"Amount: {claim.ClaimAmount},\n" +
+                                $"Date of accident: {claim.DateOfAccident.ToShortDateString()},\n" +
+                                $"Date of claim: {claim.DateOfClaim.ToShortDateString()},\n" +
+                                $"IsValid: {claim.IsValid}\n\n");
+            } else
+            {
+                WriteLine(" Sorry, The ID you looking for is not in the record!");
+            }
+        }
+
 
 
         public void SeedClaimList()
