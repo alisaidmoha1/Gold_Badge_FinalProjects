@@ -5,33 +5,36 @@ using System.Collections.Generic;
 
 namespace KomodoInsurance_Tests
 {
-   
+
     [TestClass]
     public class Insurance_Repo_Tests
     {
-        private Insurance_Repository _repo;
-        private Insurance _insurance;
+        //private Insurance_Repository _repo;
+        //private Insurance _insurance;
 
         [TestInitialize]
 
-        public void Arrange()
-        {
-            _repo = new Insurance_Repository();
-            _insurance = new Insurance(400, DoorNames.B3);
+        //public void Arrange()
+        //{
+        //    _repo = new Insurance_Repository();
+        //    _insurance = new Insurance(400, List<string>{ "A", "B" });
 
-            _repo.CreateNewBadges(_insurance.BadgeID, _insurance.AccessDooor);
-        }
+        //    _repo.CreateNewBadges(_insurance.BadgeID, _insurance.AccessDooor);
+        //}
 
 
         [TestMethod]
         public void AddToAccessList_ShouldGetNotNull()
         {
+            List<string> door = new List<string>();
+            door.Add("A5");
+
             Insurance insurance = new Insurance();
             insurance.BadgeID = 244;
-            insurance.AccessDooor = DoorNames.A1;
+            insurance.AccessDoor = door;
 
             Insurance_Repository repo = new Insurance_Repository();
-            repo.CreateNewBadges(insurance.BadgeID, insurance.AccessDooor);
+            repo.CreateNewBadges(insurance.BadgeID, insurance.AccessDoor);
 
             Assert.IsNotNull(repo);
         }
@@ -41,11 +44,15 @@ namespace KomodoInsurance_Tests
         {
             Insurance_Repository repo = new Insurance_Repository();
             Insurance access = new Insurance();
-            access.BadgeID = 244;
-            access.AccessDooor = DoorNames.B1;
+            List<string> door = new List<string>();
+            door.Add("A7");
+            door.Add("A4");
 
-            repo.CreateNewBadges(access.BadgeID, access.AccessDooor);
-            Dictionary<int, DoorNames> dic = repo.GetAllBadges();
+            access.BadgeID = 244;
+            access.AccessDoor = door;
+
+            repo.CreateNewBadges(access.BadgeID, access.AccessDoor);
+            Dictionary<int, List<string>> dic = repo.GetAllBadges();
             bool listHasAccess = dic.ContainsKey(access.BadgeID);
 
             Assert.IsTrue(listHasAccess);
@@ -56,21 +63,30 @@ namespace KomodoInsurance_Tests
         [TestMethod]
         public void UpdateExistingBadge_ShouldUpdate()
         {
-            Insurance newData = new Insurance(400, DoorNames.A2);
+            List<string> door = new List<string>();
+            door.Add("A9");
+            Insurance newData = new Insurance(400, door);
+            Insurance_Repository repo = new Insurance_Repository();
+            repo.CreateNewBadges(newData.BadgeID, newData.AccessDoor);
+            List<string> old = new List<string>();
+            old.Add("B2");
 
-         _repo.UpdateBadges(newData.BadgeID, newData.AccessDooor);
+            repo.AddDoorsToBadges(newData.BadgeID, old);
 
-          
+            List<string> list = new List<string>();
+            list.Add("A9");
+            list.Add("B2");
 
-            var expected = DoorNames.A2;
-            var actual = DoorNames.A1;
+             var expected = list;
+             var actual = newData.AccessDoor;
 
-            Assert.AreEqual(expected, actual);
 
-            
+            CollectionAssert.AreEqual(expected, actual);
+
+
         }
 
-
-
     }
+
 }
+

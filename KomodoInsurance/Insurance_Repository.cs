@@ -1,34 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace KomodoInsurance
 {
     public class Insurance_Repository
     {
-        Dictionary<int, DoorNames> _listOfBadges = new Dictionary<int, DoorNames>();
+        Dictionary<int, List<string>> _listOfBadges = new Dictionary<int, List<string>>();
 
-        public void CreateNewBadges(int badgeID, DoorNames doorNames)
+
+        public void CreateNewBadges(int badgeID, List<string> doorNames)
         {
+
             _listOfBadges.Add(badgeID, doorNames);
         }
 
-        public Dictionary<int, DoorNames> GetAllBadges()
+        public Dictionary<int, List<string>> GetAllBadges()
         {
             return _listOfBadges;
         }
 
-        public bool UpdateBadges(int badgeID, DoorNames newDoorNames)
+        public bool AddDoorsToBadges(int badgeID, List<string> newDoorNames)
         {
-            Insurance oldAccess = GetAccessByBadge(badgeID);
+            Dictionary<int, List<string>> dic = GetAllBadges();
 
-            if (oldAccess == null)
+            if (dic.ContainsKey(badgeID))
             {
-                oldAccess.AccessDooor = newDoorNames;
+                List<string> currentDoorList = GetBadgeAccessListByID(badgeID);
+                List<string> updatedDoorList = currentDoorList;
+                foreach (string door in newDoorNames)
+                {
+                    updatedDoorList.Add(door);
+                }
+                dic[badgeID] = newDoorNames;
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
@@ -36,16 +43,64 @@ namespace KomodoInsurance
 
         //Helper
 
-        public Insurance GetAccessByBadge(int badgeID)
+        public List<string> GetBadgeAccessListByID(int id)
         {
-            foreach (KeyValuePair<int, DoorNames> accessKeyValue in _listOfBadges)
+            foreach (KeyValuePair<int, List<string>> kvp in _listOfBadges)
             {
-               badgeID = accessKeyValue.Key;
+                if (kvp.Key == id)
+                {
+                    return kvp.Value;
+                }
             }
 
             return null;
         }
 
+        public Insurance GetAccessByBadge(int badgeID)
+        {
+            Insurance newBadge = new Insurance();
+
+            foreach (KeyValuePair<int, List<string>> accessKeyValue in _listOfBadges)
+            {
+                if (badgeID == accessKeyValue.Key)
+                {
+                    newBadge.BadgeID = badgeID;
+                    foreach (string accessValue in accessKeyValue.Value)
+                    {
+
+                        newBadge.AccessDoor.Add(accessValue);
+
+                    }
+
+                }
+
+            }
+
+            return newBadge;
+        }
+
+        public void RemoveDoors(string door)
+        {
+            List<string> doorsToRemove = new List<string>();
+
+            foreach (var kvp in _listOfBadges)
+            {
+
+                if (kvp.Key.Equals(kvp) && kvp.Value.Contains(door))
+                {
+                    kvp.Value.Remove(door);
+                }
+
+
+            }
+
+
+        }
+
     }
 
 }
+
+
+
+

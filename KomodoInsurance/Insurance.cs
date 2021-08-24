@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace KomodoInsurance
 {
-    public enum DoorNames { A1, A2, A3, A4, A5, B1, B2, B3, B4, B5}
+    
     public class Insurance
     {
+        
         public int  BadgeID { get; set; }
-        public DoorNames AccessDooor { get; set; }
+        public List<string> AccessDoor { get; set; } = new List<string>();
 
         public Insurance() { }
 
-        public Insurance(int badgeID, DoorNames accessDoor)
+        public Insurance(int badgeID, List<string> accessDoor)
         {
             BadgeID = badgeID;
-            AccessDooor = accessDoor;
+            AccessDoor = accessDoor;
         }
     }
 }
