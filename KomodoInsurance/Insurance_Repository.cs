@@ -85,8 +85,8 @@ namespace KomodoInsurance
 
             foreach (var kvp in _listOfBadges)
             {
-
-                if (kvp.Key.Equals(kvp) && kvp.Value.Contains(door))
+                int badge = kvp.Key;
+                if (kvp.Key.Equals(badge) || kvp.Value.Contains(door))
                 {
                     kvp.Value.Remove(door);
                 }
