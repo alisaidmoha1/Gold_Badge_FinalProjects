@@ -51,8 +51,6 @@ namespace KomodoCafe_Console
                     case "exit":
                     case "Exit":
                         WriteLine("Goodbye!");
-                        WriteLine("Press any key to exit");
-                        ReadKey();
                         isRunning = false;
                         break;
                     default:
@@ -103,18 +101,20 @@ namespace KomodoCafe_Console
         {
             Clear();
             List<CafeMenu> menuListItems = _repo.GetMenuList();
+           
+                foreach (CafeMenu menu in menuListItems)
 
-            foreach (CafeMenu menu in menuListItems)
-
-            {
-                WriteLine($"\nNo.{menu.MealNumber}\n" +
-                    $"Name: {menu.MealName}\n" +
-                    $"Description: {menu.Description}\n" +
-                    $"The ingredients: {menu.ListOfIngredients}\n" +
-                    $"The Price: ${menu.Price}");
-                WriteLine("\n====================\n");
+                {
+                    WriteLine($"\nNo.{menu.MealNumber}\n" +
+                        $"Name: {menu.MealName}\n" +
+                        $"Description: {menu.Description}\n" +
+                        $"The ingredients: {menu.ListOfIngredients}\n" +
+                        $"The Price: ${menu.Price}");
+                    WriteLine("\n====================\n");
+                }
+           
             }
-        }
+        
 
         private void SearchMenuItemByMealNumber()
         {
@@ -123,7 +123,7 @@ namespace KomodoCafe_Console
             int userInputInt = int.Parse(userInput);
 
             CafeMenu mealNumber = _repo.GetMenuByMealNumber(userInputInt);
-            if (userInput == null) {
+            if (mealNumber == null) {
                 WriteLine("The Meal Number you entered has not been found");
             } else
             {
@@ -144,12 +144,12 @@ namespace KomodoCafe_Console
 
             CafeMenu mealNumber = _repo.GetMenuByMealNumber(userInputInt);
 
-            if(userInput == null)
+            if(mealNumber == null)
             {
                 WriteLine("The meal number you entered is not valid");
             } else
             {
-                WriteLine($"Are you sure you want to delete No.{mealNumber.MealNumber}, (yes or no)");
+                WriteLine($"Are you sure you want to delete meal No.{mealNumber.MealNumber}, (yes or no)");
                 string answer = ReadLine().ToLower();
                 if (answer == "yes" || answer == "y")
                 {

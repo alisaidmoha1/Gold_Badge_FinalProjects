@@ -34,6 +34,8 @@ namespace KomodoClaims
                 _listOfClaims.Remove(claim);
             }
 
+            
+
 
         }
 

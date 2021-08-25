@@ -96,6 +96,14 @@ namespace KomodoInsurance_Tests
             
         }
 
+        [TestMethod]
+        public void GetAccessListByID_ShouldReturnTrue()
+        {
+            var access = _repo.GetBadgeAccessListByID(400);
+            Assert.AreEqual(_insurance, access);
+
+        }
+
     }
 
 }
