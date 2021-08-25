@@ -11,8 +11,17 @@ namespace KomodoInsurance
 
         public void CreateNewBadges(int badgeID, List<string> doorNames)
         {
+            if (_listOfBadges.ContainsKey(badgeID))
+            {
+                Console.WriteLine("\nERROR! You already have a badge ID with the same number, please change it");
+
+            }
+            else
+            {
 
             _listOfBadges.Add(badgeID, doorNames);
+
+            }
         }
 
         public Dictionary<int, List<string>> GetAllBadges()
@@ -27,12 +36,12 @@ namespace KomodoInsurance
             if (dic.ContainsKey(badgeID))
             {
                 List<string> currentDoorList = GetBadgeAccessListByID(badgeID);
-                List<string> updatedDoorList = currentDoorList;
+                //List<string> updatedDoorList = currentDoorList; 
                 foreach (string door in newDoorNames)
                 {
-                    updatedDoorList.Add(door);
+                    currentDoorList.Add(door);
                 }
-                dic[badgeID] = newDoorNames;
+                //dic[badgeID] = newDoorNames;
                 return true;
             }
             else
@@ -79,21 +88,23 @@ namespace KomodoInsurance
             return newBadge;
         }
 
-        public void RemoveDoors(string door)
-        {
-            List<string> doorsToRemove = new List<string>();
 
+        public Insurance RemoveDoors(int badgeID, string door)
+        {
+            Insurance newBadge = new Insurance();
             foreach (var kvp in _listOfBadges)
             {
-                int badge = kvp.Key;
-                if (kvp.Key.Equals(badge) || kvp.Value.Contains(door))
+             newBadge.BadgeID = badgeID;
+                
+                if (kvp.Key == badgeID)
                 {
-                    kvp.Value.Remove(door);
+                     kvp.Value.Remove(door);
                 }
 
 
             }
 
+            return newBadge;
 
         }
 

@@ -9,18 +9,21 @@ namespace KomodoInsurance_Tests
     [TestClass]
     public class Insurance_Repo_Tests
     {
-        //private Insurance_Repository _repo;
-        //private Insurance _insurance;
+        private Insurance_Repository _repo;
+        private Insurance _insurance;
 
         [TestInitialize]
 
-        //public void Arrange()
-        //{
-        //    _repo = new Insurance_Repository();
-        //    _insurance = new Insurance(400, List<string>{ "A", "B" });
+        public void Arrange()
+        {
+            List<string> list = new List<string>();
+            list.Add("A5");
+            list.Add("B6");
+            _repo = new Insurance_Repository();
+            _insurance = new Insurance(400, list);
 
-        //    _repo.CreateNewBadges(_insurance.BadgeID, _insurance.AccessDooor);
-        //}
+            _repo.CreateNewBadges(_insurance.BadgeID, list);
+        }
 
 
         [TestMethod]
@@ -84,6 +87,13 @@ namespace KomodoInsurance_Tests
             CollectionAssert.AreEqual(expected, actual);
 
 
+        }
+
+        [TestMethod]
+        public void RemoveDoorFromBadge_ShouldReturnTrue()
+        {
+            var deleteResult = _repo.RemoveDoors(_insurance.BadgeID, "A5");
+            
         }
 
     }
