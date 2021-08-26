@@ -89,7 +89,7 @@ namespace KomodoInsurance
         }
 
 
-        public Insurance RemoveDoors(int badgeID, string door)
+        public bool RemoveDoors(int badgeID, string door)
         {
             Insurance newBadge = new Insurance();
             foreach (var kvp in _listOfBadges)
@@ -104,7 +104,7 @@ namespace KomodoInsurance
 
             }
 
-            return newBadge;
+            return true;
 
         }
 

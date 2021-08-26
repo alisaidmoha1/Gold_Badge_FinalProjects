@@ -92,19 +92,22 @@ namespace KomodoInsurance_Tests
         [TestMethod]
         public void RemoveDoorFromBadge_ShouldReturnTrue()
         {
-            var deleteResult = _repo.RemoveDoors(_insurance.BadgeID, "A5");
+            bool deleteresult = _repo.RemoveDoors(_insurance.BadgeID, "A5");
+            Assert.IsTrue(deleteresult);
             
         }
 
         [TestMethod]
         public void GetAccessListByID_ShouldReturnTrue()
         {
-            var access = _repo.GetBadgeAccessListByID(400);
-            Assert.AreEqual(_insurance, access);
+            List<string> access = _repo.GetBadgeAccessListByID(400);
+            CollectionAssert.AreEqual(_insurance.AccessDoor, access);
 
         }
-
+        
     }
+
+    
 
 }
 
