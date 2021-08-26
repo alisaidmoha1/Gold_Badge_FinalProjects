@@ -7,7 +7,7 @@ I completed three projects for my Gold Badge Challenges.
 - Challenge 2 - Komodo Claims Department
 - Challenge 3 - Komodo Insurance
 
-All the three challenges are consist of class library, unit test and console project.
+All the three challenges are consist of class library project, unit test project and console project.
 
 ---
 
